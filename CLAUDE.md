@@ -21,14 +21,14 @@ abstractions.
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Simulation | CUDA C++ (`.cu` / `.cuh`) |
-| Rendering | OpenGL 4.5 + GLFW + GLAD |
-| Math | Custom header-only lib (`math/vec3.h`, `math/mat4.h`) |
-| Build | CMake 3.20+ with CUDA language support |
-| OS / Platform | Ubuntu 24.04, CUDA Toolkit 12.x, RTX 5070 |
-| Debug / Profile | Nsight Compute, `cuda-memcheck`, ImGui overlay |
+| Layer           | Technology                                            |
+| --------------- | ----------------------------------------------------- |
+| Simulation      | CUDA C++ (`.cu` / `.cuh`)                             |
+| Rendering       | OpenGL 4.5 + GLFW + GLAD                              |
+| Math            | Custom header-only lib (`math/vec3.h`, `math/mat4.h`) |
+| Build           | CMake 3.20+ with CUDA language support                |
+| OS / Platform   | Ubuntu 24.04, CUDA Toolkit 12.x, RTX 5070             |
+| Debug / Profile | Nsight Compute, `cuda-memcheck`, ImGui overlay        |
 
 ---
 
@@ -96,11 +96,11 @@ A(x) = Σ_j  m_j * (A_j / ρ_j) * W(|x - x_j|, h)
 
 ### Kernels to implement
 
-| Kernel | Used for |
-|---|---|
-| Poly6 | Density estimation |
-| Spiky gradient | Pressure force |
-| Viscosity Laplacian | Viscosity force |
+| Kernel              | Used for           |
+| ------------------- | ------------------ |
+| Poly6               | Density estimation |
+| Spiky gradient      | Pressure force     |
+| Viscosity Laplacian | Viscosity force    |
 
 ### Key parameters (tweak via ImGui)
 

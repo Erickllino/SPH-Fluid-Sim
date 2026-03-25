@@ -175,6 +175,19 @@ glad/fast:
 .PHONY : glad/fast
 
 #=============================================================================
+# Target rules for targets named renderer
+
+# Build rule for target.
+renderer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 renderer
+.PHONY : renderer
+
+# fast build rule for target.
+renderer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/renderer.dir/build.make CMakeFiles/renderer.dir/build
+.PHONY : renderer/fast
+
+#=============================================================================
 # Target rules for targets named main
 
 # Build rule for target.
@@ -274,6 +287,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/renderer/Renderer.o: src/renderer/Renderer.cpp.o
+.PHONY : src/renderer/Renderer.o
+
+# target to build an object file
+src/renderer/Renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/renderer.dir/build.make CMakeFiles/renderer.dir/src/renderer/Renderer.cpp.o
+.PHONY : src/renderer/Renderer.cpp.o
+
+src/renderer/Renderer.i: src/renderer/Renderer.cpp.i
+.PHONY : src/renderer/Renderer.i
+
+# target to preprocess a source file
+src/renderer/Renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/renderer.dir/build.make CMakeFiles/renderer.dir/src/renderer/Renderer.cpp.i
+.PHONY : src/renderer/Renderer.cpp.i
+
+src/renderer/Renderer.s: src/renderer/Renderer.cpp.s
+.PHONY : src/renderer/Renderer.s
+
+# target to generate assembly for a file
+src/renderer/Renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/renderer.dir/build.make CMakeFiles/renderer.dir/src/renderer/Renderer.cpp.s
+.PHONY : src/renderer/Renderer.cpp.s
+
+src/renderer/Shader.o: src/renderer/Shader.cpp.o
+.PHONY : src/renderer/Shader.o
+
+# target to build an object file
+src/renderer/Shader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/renderer.dir/build.make CMakeFiles/renderer.dir/src/renderer/Shader.cpp.o
+.PHONY : src/renderer/Shader.cpp.o
+
+src/renderer/Shader.i: src/renderer/Shader.cpp.i
+.PHONY : src/renderer/Shader.i
+
+# target to preprocess a source file
+src/renderer/Shader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/renderer.dir/build.make CMakeFiles/renderer.dir/src/renderer/Shader.cpp.i
+.PHONY : src/renderer/Shader.cpp.i
+
+src/renderer/Shader.s: src/renderer/Shader.cpp.s
+.PHONY : src/renderer/Shader.s
+
+# target to generate assembly for a file
+src/renderer/Shader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/renderer.dir/build.make CMakeFiles/renderer.dir/src/renderer/Shader.cpp.s
+.PHONY : src/renderer/Shader.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -291,12 +352,19 @@ help:
 	@echo "... glad"
 	@echo "... glfw"
 	@echo "... main"
+	@echo "... renderer"
 	@echo "... extern/glad/src/glad.o"
 	@echo "... extern/glad/src/glad.i"
 	@echo "... extern/glad/src/glad.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/renderer/Renderer.o"
+	@echo "... src/renderer/Renderer.i"
+	@echo "... src/renderer/Renderer.s"
+	@echo "... src/renderer/Shader.o"
+	@echo "... src/renderer/Shader.i"
+	@echo "... src/renderer/Shader.s"
 .PHONY : help
 
 

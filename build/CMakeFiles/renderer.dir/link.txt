@@ -1,0 +1,2 @@
+/usr/bin/ar qc librenderer.a CMakeFiles/renderer.dir/src/renderer/Renderer.cpp.o CMakeFiles/renderer.dir/src/renderer/Shader.cpp.o
+/usr/bin/ranlib librenderer.a

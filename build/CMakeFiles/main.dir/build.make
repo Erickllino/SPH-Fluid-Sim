@@ -95,8 +95,12 @@ main: CMakeFiles/main.dir/build.make
 main: /usr/lib/x86_64-linux-gnu/libGL.so
 main: extern/glfw/src/libglfw3.a
 main: libglad.a
+main: librenderer.a
+main: /usr/lib/x86_64-linux-gnu/libGL.so
+main: extern/glfw/src/libglfw3.a
 main: /usr/lib/x86_64-linux-gnu/librt.a
 main: /usr/lib/x86_64-linux-gnu/libm.so
+main: libglad.a
 main: CMakeFiles/main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/yienvee/Desktop/SPH_fluid_sim/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)

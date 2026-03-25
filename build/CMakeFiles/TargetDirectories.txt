@@ -1,4 +1,5 @@
 /home/yienvee/Desktop/SPH_fluid_sim/build/CMakeFiles/glad.dir
+/home/yienvee/Desktop/SPH_fluid_sim/build/CMakeFiles/renderer.dir
 /home/yienvee/Desktop/SPH_fluid_sim/build/CMakeFiles/main.dir
 /home/yienvee/Desktop/SPH_fluid_sim/build/CMakeFiles/edit_cache.dir
 /home/yienvee/Desktop/SPH_fluid_sim/build/CMakeFiles/rebuild_cache.dir

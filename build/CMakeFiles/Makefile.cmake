@@ -32,6 +32,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake"
   "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake"
   "/usr/share/cmake-3.28/Modules/CheckIncludeFile.cmake"
+  "/usr/share/cmake-3.28/Modules/CheckLanguage.cmake"
   "/usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/GNU-C.cmake"
@@ -79,6 +80,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/glad.dir/DependInfo.cmake"
+  "CMakeFiles/renderer.dir/DependInfo.cmake"
   "CMakeFiles/main.dir/DependInfo.cmake"
   "extern/glfw/CMakeFiles/uninstall.dir/DependInfo.cmake"
   "extern/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake"

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCUDA_AVAILABLE
 
-CXX_INCLUDES = -I/home/yienvee/Desktop/SPH_fluid_sim/extern/glfw/include -I/home/yienvee/Desktop/SPH_fluid_sim/extern/glad/include -I/home/yienvee/Desktop/SPH_fluid_sim/src
+CXX_INCLUDES = -I/home/yienvee/Desktop/SPH_fluid_sim/src -I/home/yienvee/Desktop/SPH_fluid_sim/extern/glad/include -I/home/yienvee/Desktop/SPH_fluid_sim/extern/glfw/include
 
 CXX_FLAGS = -std=gnu++17
 

@@ -31,10 +31,24 @@ add_subdirectory(extern/glfw)
 add_library(glad STATIC extern/glad/src/glad.c)
 target_include_directories(glad PUBLIC extern/glad/include)
 
-add_executable(main src/main.cpp)
 
+
+add_library(renderer
+    src/renderer/Renderer.cpp
+    src/renderer/Shader.cpp
+)
+
+target_include_directories(renderer PUBLIC src)
+target_link_libraries(renderer PUBLIC glad glfw OpenGL::GL)
+
+
+add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE
     OpenGL::GL
     glfw
     glad
+    renderer
 )
+
+
+
