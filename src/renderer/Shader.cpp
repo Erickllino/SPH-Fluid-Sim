@@ -26,8 +26,8 @@ Do not skip error checking — shader compile errors are silent unless you
 Shader::Shader(const char *filename)
 {
 
-  std::string vertPath = std::string("shaders/") + filename + ".vert";
-  std::string fragPath = std::string("shaders/") + filename + ".frag";
+  std::string vertPath = std::string("shaders/") + filename + "/" + filename + ".vert";
+  std::string fragPath = std::string("shaders/") + filename + "/" + filename + ".frag";
 
   std::ifstream vert(vertPath);
   std::ifstream frag(fragPath);

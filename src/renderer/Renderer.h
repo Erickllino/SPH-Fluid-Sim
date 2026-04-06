@@ -12,7 +12,7 @@ private:
     Shader shader; // or Shader* if you prefer pointer
 
 public:
-    Renderer(int maxParticles);
+    Renderer(int maxParticles, const char *shaderName);
     ~Renderer(); // glDelete* calls go here
 
     void update(const float *positions, int count); // CPU path

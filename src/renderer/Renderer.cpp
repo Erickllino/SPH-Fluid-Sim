@@ -1,7 +1,7 @@
 #include "Renderer.h"
 #include <glad/glad.h>
 
-Renderer::Renderer(int Particles) : maxParticles(Particles), shader("particle")
+Renderer::Renderer(int Particles, const char *shaderName) : maxParticles(Particles), shader(shaderName)
 {
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);

@@ -74,7 +74,7 @@ int main()
     printf("OpenGL: %s\n", glGetString(GL_VERSION));
     printf("GPU: %s\n", glGetString(GL_RENDERER));
 
-    Renderer renderer(1000);
+    Renderer renderer(1000, "triangle");
     float positions[9] = {
         -0.5f, -0.5f, -2.0f,
         0.0f, 0.5f, -2.0f,
@@ -108,8 +108,8 @@ int main()
 
         for (int j = 0; j < 3; j++)
         {
-            printf("%d\n", j);
-            positions[3 * j + 3] -= i;
+            printf("pos[%d]: %f\n", j, positions[3 * j + 3]);
+            positions[3 * j] -= i;
         };
 
         // Swap front and back buffers
