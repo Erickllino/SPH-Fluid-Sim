@@ -12,6 +12,8 @@ if(CMAKE_CUDA_COMPILER)
     set(CMAKE_CUDA_ARCHITECTURES native)
     add_compile_definitions(CUDA_AVAILABLE)
     message(STATUS "CUDA encontrado: ${CMAKE_CUDA_COMPILER}")
+    include(FindCUDAToolkit)
+    find_package(CUDAToolkit REQUIRED)
 else()
     message(STATUS "CUDA não encontrado — compilando só com OpenGL/CPU")
 endif()
@@ -37,10 +39,13 @@ add_library(renderer
     src/renderer/Renderer.cpp
     src/renderer/Shader.cpp
 )
-
 target_include_directories(renderer PUBLIC src)
-target_link_libraries(renderer PUBLIC glad glfw OpenGL::GL)
 
+# Interface library — para header-only
+add_library(matlib INTERFACE)
+target_include_directories(matlib INTERFACE include/math)
+
+target_link_libraries(renderer PUBLIC matlib glad glfw OpenGL::GL)
 
 add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE
@@ -49,6 +54,9 @@ target_link_libraries(main PRIVATE
     glad
     renderer
 )
-
+if(CMAKE_CUDA_COMPILER)
+    target_link_libraries(renderer PUBLIC CUDA::cudart)
+    target_link_libraries(main PRIVATE CUDA::cudart)
+endif()
 
 

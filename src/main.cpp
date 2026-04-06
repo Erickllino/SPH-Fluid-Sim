@@ -39,9 +39,15 @@ int main()
 #include <GLFW/glfw3.h>
 #include <cstdio>
 #include "renderer/Renderer.h"
+#include "mat4.h"
+#include "vec3.h"
+
 // #include "renderer/Shader.h"
 
 #include <cmath>
+
+const float WIDTH = 800;
+const float HEIGHT = 600;
 
 int main()
 {
@@ -55,7 +61,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow *window = glfwCreateWindow(800, 600, "SPH Test", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "SPH Test", nullptr, nullptr);
     if (!window)
     {
         printf("Janela falhou\n");
@@ -75,24 +81,28 @@ int main()
     printf("GPU: %s\n", glGetString(GL_RENDERER));
 
     Renderer renderer(1000, "triangle");
+
+    /*
+    vec3 positions[3] = {
+        {-0.5f, -0.5f, -2.0f},
+        {0.0f, 0.5f, -2.0f},
+        {0.5f, -0.5f, -2.0f}};
+        */
     float positions[9] = {
         -0.5f, -0.5f, -2.0f,
         0.0f, 0.5f, -2.0f,
         0.5f, -0.5f, -2.0f};
 
-    float fov = 45.0f * 3.14159f / 180.0f; // 45 graus em radianos
-    float aspect = 800.0f / 600.0f;
-    float near = 0.1f, far = 100.0f;
-    float f = 1.0f / tan(fov / 2.0f);
-
-    float proj[16] = {
-        f / aspect, 0, 0, 0,
-        0, f, 0, 0,
-        0, 0, (far + near) / (near - far), -1,
-        0, 0, (2 * far * near) / (near - far), 0};
-
     float i = 0.001f;
     double lastTime = glfwGetTime();
+
+    float fov = 45.0f * 3.14159f / 180.0f; // 45 graus em radianos
+    float aspect = WIDTH / HEIGHT;
+    float near = 0.1f, far = 100.0f;
+
+    float proj[16];
+    perspective(fov, aspect, near, far, proj);
+
     while (!glfwWindowShouldClose(window))
     {
         double currentTime = glfwGetTime();
@@ -109,7 +119,7 @@ int main()
         for (int j = 0; j < 3; j++)
         {
             printf("pos[%d]: %f\n", j, positions[3 * j + 3]);
-            positions[3 * j] -= i;
+            positions[3 * j + 3] -= i;
         };
 
         // Swap front and back buffers
