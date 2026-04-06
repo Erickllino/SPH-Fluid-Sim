@@ -1,4 +1,4 @@
-# Install script for directory: /home/yienvee/Desktop/SPH_fluid_sim
+# Install script for directory: /home/hl/Desktop/SPH-Fluid-Sim
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/yienvee/Desktop/SPH_fluid_sim/build/extern/glfw/cmake_install.cmake")
+  include("/home/hl/Desktop/SPH-Fluid-Sim/build/extern/glfw/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/yienvee/Desktop/SPH_fluid_sim/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/hl/Desktop/SPH-Fluid-Sim/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,9 +1,9 @@
 
-if (NOT EXISTS "/home/yienvee/Desktop/SPH_fluid_sim/build/extern/glfw/install_manifest.txt")
-    message(FATAL_ERROR "Cannot find install manifest: \"/home/yienvee/Desktop/SPH_fluid_sim/build/extern/glfw/install_manifest.txt\"")
+if (NOT EXISTS "/home/hl/Desktop/SPH-Fluid-Sim/build/extern/glfw/install_manifest.txt")
+    message(FATAL_ERROR "Cannot find install manifest: \"/home/hl/Desktop/SPH-Fluid-Sim/build/extern/glfw/install_manifest.txt\"")
 endif()
 
-file(READ "/home/yienvee/Desktop/SPH_fluid_sim/build/extern/glfw/install_manifest.txt" files)
+file(READ "/home/hl/Desktop/SPH-Fluid-Sim/build/extern/glfw/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})

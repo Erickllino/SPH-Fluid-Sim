@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/main.dir/src/main.cpp.o -o main  /usr/lib/x86_64-linux-gnu/libGL.so extern/glfw/src/libglfw3.a libglad.a librenderer.a /usr/lib/x86_64-linux-gnu/libGL.so extern/glfw/src/libglfw3.a /usr/lib/x86_64-linux-gnu/librt.a -lm -ldl libglad.a 
+/usr/bin/c++ CMakeFiles/main.dir/src/main.cpp.o -o main  extern/glfw/src/libglfw3.a libglad.a librenderer.a /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so extern/glfw/src/libglfw3.a /usr/lib/x86_64-linux-gnu/librt.a -lm -ldl libglad.a 

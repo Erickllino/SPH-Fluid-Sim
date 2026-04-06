@@ -1,4 +1,4 @@
-# Install script for directory: /home/yienvee/Desktop/SPH_fluid_sim/extern/glfw/src
+# Install script for directory: /home/hl/Desktop/SPH-Fluid-Sim/extern/glfw/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -42,7 +42,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/yienvee/Desktop/SPH_fluid_sim/build/extern/glfw/src/libglfw3.a")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/hl/Desktop/SPH-Fluid-Sim/build/extern/glfw/src/libglfw3.a")
 endif()
 
