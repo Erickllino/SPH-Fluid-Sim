@@ -9,7 +9,11 @@ private:
     unsigned int vao;
     unsigned int vbo;
     int maxParticles;
-    Shader shader; // or Shader* if you prefer pointer
+    Shader shader;
+
+    unsigned int axisVAO;
+    unsigned int axisVBO;
+    Shader axisShader;
 
 public:
     Renderer(int maxParticles, const char *shaderName);
@@ -18,6 +22,7 @@ public:
     void update(const float *positions, int count); // CPU path
     void draw(int count);
     void draw_triangle(int count);
+    void drawAxes(const float *mvp);
     void setMVP(const float *mat4);
 
     unsigned int getVBO() const; // CUDA interop later

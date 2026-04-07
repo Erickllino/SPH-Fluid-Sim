@@ -82,12 +82,11 @@ int main()
 
     Renderer renderer(1000, "triangle");
 
-    /*
-    vec3 positions[3] = {
-        {-0.5f, -0.5f, -2.0f},
-        {0.0f, 0.5f, -2.0f},
-        {0.5f, -0.5f, -2.0f}};
-        */
+    // vec3 positions[3] = {
+    //     {-0.5f, -0.5f, -2.0f},
+    //     {0.0f, 0.5f, -2.0f},
+    //     {0.5f, -0.5f, -2.0f}};
+
     float positions[9] = {
         -0.5f, -0.5f, -2.0f,
         0.0f, 0.5f, -2.0f,
@@ -100,8 +99,11 @@ int main()
     float aspect = WIDTH / HEIGHT;
     float near = 0.1f, far = 100.0f;
 
-    float proj[16];
-    perspective(fov, aspect, near, far, proj);
+    mat4 proj = perspective(fov, aspect, near, far, proj);
+    mat4 view = lookAt(vec3(1.0f, 1.0f, 2.0f),  // posição da câmera
+                       vec3(0.0f, 0.0f, 0.0f),  // olhando para a origem
+                       vec3(0.0f, 1.0f, 0.0f)); // up = Y
+    mat4 vp = view * proj;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -112,14 +114,15 @@ int main()
         glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        renderer.setMVP(proj);
+        renderer.setMVP(vp);
         renderer.update(positions, 3);
         renderer.draw_triangle(3);
+        renderer.drawAxes(vp);
 
         for (int j = 0; j < 3; j++)
         {
-            printf("pos[%d]: %f\n", j, positions[3 * j + 3]);
-            positions[3 * j + 3] -= i;
+            // printf("pos[%d]: %f\n", j, positions[3 * j + 3]);
+            positions[3 * j + 2] += i;
         };
 
         // Swap front and back buffers

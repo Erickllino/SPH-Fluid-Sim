@@ -6,6 +6,8 @@ class Shader
 {
 private:
     unsigned int ShaderID;
+    Shader() : ShaderID(0) {}
+    friend class Renderer;
 
 public:
     Shader(const char *filename);
