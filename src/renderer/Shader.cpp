@@ -156,6 +156,12 @@ void Shader::setUniform(const char *name, const float *mat4) const
   glUniformMatrix4fv(location, 1, GL_FALSE, mat4);
 };
 
+void Shader::setUniformf(const char *name, float v) const
+{
+  int location = glGetUniformLocation(ShaderID, name);
+  glUniform1f(location, v);
+}
+
 void Shader::use() const
 {
   glUseProgram(ShaderID);

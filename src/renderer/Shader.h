@@ -14,7 +14,7 @@ public:
     ~Shader();
 
     void setUniform(const char *name, const float *mat4) const;
+    void setUniformf(const char *name, float v) const;
 
     void use() const;
-    // later: setUniform helpers for mat4, vec3, float
 };

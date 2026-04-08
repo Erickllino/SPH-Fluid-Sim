@@ -126,14 +126,20 @@ int main()
     printf("OpenGL: %s\n", glGetString(GL_VERSION));
     printf("GPU: %s\n", glGetString(GL_RENDERER));
 
-    Renderer renderer(1000, "triangle");
+    // Renderer renderer(1000, "triangle");
+
+    ShapeDebugRenderer shapeRenderer("triangle");
+    DebugRenderer debugRenderer("axis");
+    ParticleRenderer particleRenderer(1, "particle");
 
     vec3 positions[3] = {
         {0.0f, 0.0f, 0.0f},
         {0.5f, 1.0f, 0.0f},
         {1.0f, 0.0f, 0.0f}};
 
-    float i = 0.001f;
+    vec3 part = {1.0f, 0.0f, 0.0f};
+    // vec3 part = {-0.7f, 0.0f, -1.0f};
+    float i = PI / 72.0f;
     double lastTime = glfwGetTime();
 
     float fov = 45.0f * PI / 180.0f; // 45 graus em radianos
@@ -146,6 +152,7 @@ int main()
                        vec3(0.0f, 1.0f, 0.0f)); // up = Y
     mat4 vp = view * proj;
 
+    glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(window))
     {
         double currentTime = glfwGetTime();
@@ -153,33 +160,42 @@ int main()
         lastTime = currentTime;
 
         glEnable(GL_PROGRAM_POINT_SIZE);
-        glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        renderer.setMVP(vp);
+        shapeRenderer.setMVP(vp);
 
-        renderer.drawAxes(vp);
-        int k = 0;
-        for (auto &v : positions)
+        debugRenderer.drawAxes(vp);
+
+        if (int(currentTime) == 0)
         {
-            k++;
-            printf("posvec[%d]: %f %f %f\n", k, v.x, v.y, v.z);
-            // if (dt > 1)
-            //     v = RotY(i, v, v);
-            v = RotZ(i, v, v);
+        }
+        else if (int(currentTime) % 3 == 1)
+        {
+            part = RotY(i, part, part);
+        }
+        else if (int(currentTime) % 3 == 2)
+        {
+            part = RotZ(i, part, part);
+        }
+        else if (int(currentTime) % 3 == 0)
+        {
+            part = RotX(i, part, part);
         }
 
-        // renderer.update(positions, 3);
-        renderer.update((float *)positions, 3);
-        renderer.draw_triangle(3);
-
-        // for (int j = 0; j < 3; j++)
+        // if (currentTime >= 10.0f)
         // {
-        //     // printf("pos[%d]: %f\n", j, positions[3 * j + 3]);
-        //     positions[3 * j + 2] += i;
+        //     part = RotX(PI / 72.0f, part, part);
         // };
 
-        // Swap front and back buffers
+        // if (currentTime >= 15.0f)
+        // {
+        //     part = RotZ(PI / 72.0f, part, part);
+        // };
+        particleRenderer.setViewProj(view, proj);
+        particleRenderer.update((float *)&part, 1);
+        particleRenderer.drawParticles(1, 0.1f, HEIGHT);
         glfwSwapBuffers(window);
 
         glfwPollEvents();
