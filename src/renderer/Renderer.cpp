@@ -1,18 +1,32 @@
 #include "Renderer.h"
 #include <glad/glad.h>
+#include "vec3.h"
 
-// pos(xyz) + cor(rgb) para cada extremidade dos 3 eixos
-static const float axisVerts[] = {
-    // X - vermelho
-    0,0,0,  1,0,0,
-    1,0,0,  1,0,0,
-    // Y - verde
-    0,0,0,  0,1,0,
-    0,1,0,  0,1,0,
-    // Z - azul
-    0,0,0,  0,0,1,
-    0,0,1,  0,0,1,
-};
+static const float Axis_Size = 4.0f;
+
+// 3 eixos × 2 vértices × 6 floats (pos+cor) = 36 floats
+static void buildAxisVerts(float out[3 * 2 * 6])
+{
+    float neg = -Axis_Size / 4.0f;
+
+    // Cores dos vetores, RGB normalizado
+    vec3 cX = {1, 0, 0}; // vermelho
+    vec3 cY = {0, 1, 0}; // verde
+    vec3 cZ = {0, 0, 1}; // azul
+
+    // clang-format off
+    float buf[] = {
+        neg,       0,   0,  cX.x, cX.y, cX.z,  // X: neg → pos
+        Axis_Size, 0,   0,  cX.x, cX.y, cX.z,
+        0,   neg,        0, cY.x, cY.y, cY.z,  // Y: neg → pos
+        0,   Axis_Size,  0, cY.x, cY.y, cY.z,
+        0,   0,   neg,      cZ.x, cZ.y, cZ.z,  // Z: neg → pos
+        0,   0,   Axis_Size,cZ.x, cZ.y, cZ.z,
+    };
+    // clang-format on
+    for (int i = 0; i < 36; i++)
+        out[i] = buf[i];
+}
 
 Renderer::Renderer(int Particles, const char *shaderName)
     : maxParticles(Particles), shader(shaderName), axisShader("axis")
@@ -28,6 +42,9 @@ Renderer::Renderer(int Particles, const char *shaderName)
     glBindVertexArray(0);
 
     // VAO dos eixos
+    float axisVerts[3 * 2 * 6];
+    buildAxisVerts(axisVerts);
+
     glGenVertexArrays(1, &axisVAO);
     glBindVertexArray(axisVAO);
     glGenBuffers(1, &axisVBO);

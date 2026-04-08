@@ -45,9 +45,55 @@ int main()
 // #include "renderer/Shader.h"
 
 #include <cmath>
+const float PI = 3.14159265358979323846f;
 
 const float WIDTH = 800;
 const float HEIGHT = 600;
+
+vec3 RotY(float angle, vec3 v, vec3 out)
+{
+    float cosA = cosf(angle);
+    float sinA = sinf(angle);
+
+    mat4 rotY = {{{cosA, 0, sinA, 0},
+                  {0, 1, 0, 0},
+                  {-sinA, 0, cosA, 0},
+                  {0, 0, 0, 1}}};
+
+    out = transformPoint(rotY, v);
+
+    return out;
+}
+
+vec3 RotX(float angle, vec3 v, vec3 out)
+{
+    float cosA = cosf(angle);
+    float sinA = sinf(angle);
+
+    mat4 rotX = {{{1, 0, 0, 0},
+                  {0, cosA, -sinA, 0},
+                  {0, sinA, cosA, 0},
+                  {0, 0, 0, 1}}};
+
+    out = transformPoint(rotX, v);
+
+    return out;
+}
+
+vec3 RotZ(float angle, vec3 v, vec3 out)
+{
+    float cosA = cosf(angle);
+    float sinA = sinf(angle);
+
+    mat4 rotZ = {{{cosA, -sinA, 0, 0},
+                  {sinA, cosA, 0, 0},
+                  {0, 0, 1, 0},
+                  {0, 0, 0, 1}}};
+
+    out = transformPoint(rotZ, v);
+
+    return out;
+}
 
 int main()
 {
@@ -82,25 +128,20 @@ int main()
 
     Renderer renderer(1000, "triangle");
 
-    // vec3 positions[3] = {
-    //     {-0.5f, -0.5f, -2.0f},
-    //     {0.0f, 0.5f, -2.0f},
-    //     {0.5f, -0.5f, -2.0f}};
-
-    float positions[9] = {
-        -0.5f, -0.5f, -2.0f,
-        0.0f, 0.5f, -2.0f,
-        0.5f, -0.5f, -2.0f};
+    vec3 positions[3] = {
+        {0.0f, 0.0f, 0.0f},
+        {0.5f, 1.0f, 0.0f},
+        {1.0f, 0.0f, 0.0f}};
 
     float i = 0.001f;
     double lastTime = glfwGetTime();
 
-    float fov = 45.0f * 3.14159f / 180.0f; // 45 graus em radianos
+    float fov = 45.0f * PI / 180.0f; // 45 graus em radianos
     float aspect = WIDTH / HEIGHT;
     float near = 0.1f, far = 100.0f;
 
     mat4 proj = perspective(fov, aspect, near, far, proj);
-    mat4 view = lookAt(vec3(1.0f, 1.0f, 2.0f),  // posição da câmera
+    mat4 view = lookAt(vec3(2.0f, 2.0f, 3.0f),  // posição da câmera
                        vec3(0.0f, 0.0f, 0.0f),  // olhando para a origem
                        vec3(0.0f, 1.0f, 0.0f)); // up = Y
     mat4 vp = view * proj;
@@ -110,20 +151,33 @@ int main()
         double currentTime = glfwGetTime();
         float dt = (float)(currentTime - lastTime);
         lastTime = currentTime;
+
         glEnable(GL_PROGRAM_POINT_SIZE);
         glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         renderer.setMVP(vp);
-        renderer.update(positions, 3);
-        renderer.draw_triangle(3);
-        renderer.drawAxes(vp);
 
-        for (int j = 0; j < 3; j++)
+        renderer.drawAxes(vp);
+        int k = 0;
+        for (auto &v : positions)
         {
-            // printf("pos[%d]: %f\n", j, positions[3 * j + 3]);
-            positions[3 * j + 2] += i;
-        };
+            k++;
+            printf("posvec[%d]: %f %f %f\n", k, v.x, v.y, v.z);
+            // if (dt > 1)
+            //     v = RotY(i, v, v);
+            v = RotZ(i, v, v);
+        }
+
+        // renderer.update(positions, 3);
+        renderer.update((float *)positions, 3);
+        renderer.draw_triangle(3);
+
+        // for (int j = 0; j < 3; j++)
+        // {
+        //     // printf("pos[%d]: %f\n", j, positions[3 * j + 3]);
+        //     positions[3 * j + 2] += i;
+        // };
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
