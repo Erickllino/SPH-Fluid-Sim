@@ -38,6 +38,7 @@ target_include_directories(glad PUBLIC extern/glad/include)
 add_library(renderer
     src/renderer/Renderer.cpp
     src/renderer/Shader.cpp
+    src/renderer/Camera.cpp
 )
 target_include_directories(renderer PUBLIC src)
 

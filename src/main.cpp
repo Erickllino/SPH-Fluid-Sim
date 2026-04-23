@@ -41,6 +41,7 @@ int main()
 #include "renderer/Renderer.h"
 #include "mat4.h"
 #include "vec3.h"
+#include "renderer/Camera.h"
 
 // #include "renderer/Shader.h"
 
@@ -142,19 +143,25 @@ int main()
     float i = PI / 72.0f;
     double lastTime = glfwGetTime();
 
-    float fov = 45.0f * PI / 180.0f; // 45 graus em radianos
-    float aspect = WIDTH / HEIGHT;
-    float near = 0.1f, far = 100.0f;
+    Camera camera(vec3(2.0f, 2.0f, 3.0f), // posição da câmera
+                  vec3(0.0f, 0.0f, 0.0f), // olhando para a origem
+                  vec3(0.0f, 1.0f, 0.0f), // up = Y
+                  45.0f * PI / 180.0f);   // fov em radianos
 
-    mat4 proj = perspective(fov, aspect, near, far, proj);
-    mat4 view = lookAt(vec3(2.0f, 2.0f, 3.0f),  // posição da câmera
-                       vec3(0.0f, 0.0f, 0.0f),  // olhando para a origem
-                       vec3(0.0f, 1.0f, 0.0f)); // up = Y
-    mat4 vp = view * proj;
+    // float fov = 45.0f * PI / 180.0f; // 45 graus em radianos
+    // float aspect = WIDTH / HEIGHT;
+    // float near = 0.1f, far = 100.0f;
+
+    // mat4 proj = perspective(fov, aspect, near, far, proj);
+    // mat4 view = lookAt(vec3(2.0f, 2.0f, 3.0f),  // posição da câmera
+    //                    vec3(0.0f, 0.0f, 0.0f),  // olhando para a origem
+    //                    vec3(0.0f, 1.0f, 0.0f)); // up = Y
+    // mat4 vp = view * proj;
 
     glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(window))
     {
+
         double currentTime = glfwGetTime();
         float dt = (float)(currentTime - lastTime);
         lastTime = currentTime;
@@ -164,25 +171,35 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shapeRenderer.setMVP(vp);
+        shapeRenderer.setMVP(camera.vp);
 
-        debugRenderer.drawAxes(vp);
+        debugRenderer.drawAxes(camera.vp);
 
-        if (int(currentTime) == 0)
+        printf("Camera position: (%.2f, %.2f, %.2f)\n", camera.cam_pos.x, camera.cam_pos.y, camera.cam_pos.z);
+        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         {
+            camera.move_camera(vec3(0.1f, 0.0f, 0.0f));
         }
-        else if (int(currentTime) % 3 == 1)
+        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            part = RotY(i, part, part);
+            camera.move_camera(vec3(-0.1f, 0.0f, 0.0f));
         }
-        else if (int(currentTime) % 3 == 2)
-        {
-            part = RotZ(i, part, part);
-        }
-        else if (int(currentTime) % 3 == 0)
-        {
-            part = RotX(i, part, part);
-        }
+
+        // if (int(currentTime) == 0)
+        // {
+        // }
+        // else if (int(currentTime) % 3 == 1)
+        // {
+        //     part = RotY(i, part, part);
+        // }
+        // else if (int(currentTime) % 3 == 2)
+        // {
+        //     part = RotZ(i, part, part);
+        // }
+        // else if (int(currentTime) % 3 == 0)
+        // {
+        //     part = RotX(i, part, part);
+        // }
 
         // if (currentTime >= 10.0f)
         // {
@@ -193,7 +210,8 @@ int main()
         // {
         //     part = RotZ(PI / 72.0f, part, part);
         // };
-        particleRenderer.setViewProj(view, proj);
+
+        particleRenderer.setViewProj(camera.view, camera.proj);
         particleRenderer.update((float *)&part, 1);
         particleRenderer.drawParticles(1, 0.1f, HEIGHT);
         glfwSwapBuffers(window);
