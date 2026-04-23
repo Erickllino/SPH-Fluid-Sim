@@ -138,7 +138,7 @@ int main()
         {0.5f, 1.0f, 0.0f},
         {1.0f, 0.0f, 0.0f}};
 
-    vec3 part = {1.0f, 0.0f, 0.0f};
+    vec3 part = {1.0f, 0.0f, 1.0f};
     // vec3 part = {-0.7f, 0.0f, -1.0f};
     float i = PI / 72.0f;
     double lastTime = glfwGetTime();
@@ -148,17 +148,8 @@ int main()
                   vec3(0.0f, 1.0f, 0.0f), // up = Y
                   45.0f * PI / 180.0f);   // fov em radianos
 
-    // float fov = 45.0f * PI / 180.0f; // 45 graus em radianos
-    // float aspect = WIDTH / HEIGHT;
-    // float near = 0.1f, far = 100.0f;
-
-    // mat4 proj = perspective(fov, aspect, near, far, proj);
-    // mat4 view = lookAt(vec3(2.0f, 2.0f, 3.0f),  // posição da câmera
-    //                    vec3(0.0f, 0.0f, 0.0f),  // olhando para a origem
-    //                    vec3(0.0f, 1.0f, 0.0f)); // up = Y
-    // mat4 vp = view * proj;
-
     glEnable(GL_DEPTH_TEST);
+
     while (!glfwWindowShouldClose(window))
     {
 
@@ -171,20 +162,27 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shapeRenderer.setMVP(camera.vp);
-
-        debugRenderer.drawAxes(camera.vp);
-
-        printf("Camera position: (%.2f, %.2f, %.2f)\n", camera.cam_pos.x, camera.cam_pos.y, camera.cam_pos.z);
         if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         {
-            camera.move_camera(vec3(0.1f, 0.0f, 0.0f));
+            camera.move_camera(vec3(0.01f, 0.0f, 0.0f));
         }
         if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            camera.move_camera(vec3(-0.1f, 0.0f, 0.0f));
+            camera.move_camera(vec3(-0.01f, 0.0f, 0.0f));
+        }
+        if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        {
+            camera.move_camera(vec3(0.0f, 0.0f, 0.01f));
+        }
+        if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        {
+            camera.move_camera(vec3(0.0f, 0.0f, -0.01f));
         }
 
+        camera.update();
+        shapeRenderer.setMVP(camera.vp);
+
+        debugRenderer.drawAxes(camera.vp);
         // if (int(currentTime) == 0)
         // {
         // }

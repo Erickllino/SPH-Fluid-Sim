@@ -22,4 +22,6 @@ public:
 
     vec3 getPosition() const { return cam_pos; };
     void move_camera(const vec3 &delta);
+
+    void update();
 };
